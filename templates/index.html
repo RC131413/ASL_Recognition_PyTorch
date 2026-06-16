@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Rozpoznawanie Języka Migowego (ASL)</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f4f4f9;}
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        .upload-btn { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 10px;}
+        .upload-btn:hover { background: #0056b3; }
+        .result { font-size: 24px; font-weight: bold; margin-top: 20px; color: #28a745; }
+        img { max-width: 100%; border-radius: 5px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rozpoznawanie Litery ASL ✋</h1>
+        <p>Prześlij zdjęcie dłoni pokazującej literę w amerykańskim języku migowym.</p>
+
+        <form method="post" action="/predict" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <br>
+            <button type="submit" class="upload-btn">Rozpoznaj Literę</button>
+        </form>
+
+        {% if predicted_letter %}
+        <div class="result">
+            Zgaduję, że to litera: {{ predicted_letter.upper() }}
+        </div>
+        {% endif %}
+
+        {% if error_message %}
+        <div class="result" style="color: red;">
+            Błąd: {{ error_message }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
